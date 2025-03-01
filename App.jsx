@@ -4,6 +4,7 @@ import { NavMenu } from "@shopify/app-bridge-react";
 import Routes from "./Routes";
 import './assets/css/app.css'
 import { QueryProvider, PolarisProvider } from "./components";
+import { useEffect } from "react";
 
 export default function App() {
   // Any .tsx or .jsx files in /pages will become a route
@@ -12,6 +13,16 @@ export default function App() {
     eager: true,
   });
   const { t } = useTranslation();
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const shop = urlParams.get("shop");
+    if (shop) {
+      // window.location.href = `https://shopify-app-backend.amirait.in/public//
+      window.location.href = `https://shopify-app-backend.amirait.in/public/auth?shop=${shop}`;
+    }
+  }, []);
+
 
   return (
     <PolarisProvider>
